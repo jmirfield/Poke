@@ -1,0 +1,26 @@
+.search {
+    display: flex;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.search:focus-within {
+    outline: 2px solid var(--yellow);
+}
+
+.search > input {
+    margin-left: 1rem;
+    border: none;
+    font-size: 2rem;
+}
+
+.search > input:focus {
+    outline: none;
+}
+
+.cover {
+    margin-top: 5rem;
+}
