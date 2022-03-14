@@ -19,6 +19,7 @@ body {
   --yellow: #FFBA08;
   --gray: #A2AEBB;
   --blue: #3F88C5;
+  --header-height: 4rem;
 }
 
 a {

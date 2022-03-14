@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <nav className={styles.header}>
       <Link href='/'>
         <a>
-          <img src='pokemon-logo.png'></img>
+          <img src='/pokemon-logo.png'></img>
         </a>
       </Link>
     </nav>

@@ -18,7 +18,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
           const className: string = poke.sprite ? '' : styles.placeholder
           return (
             <li key={poke.name}>
-              <Link href='/'>
+              <Link href={`/pokemon/${poke.name}`}>
                 <a className={styles.dropdown__item}>
                   {poke.sprite && <Image src={poke.sprite} width='53px' height='53px' />}
                   <p className={className}>{poke.name.replace(format, (s) => s.toUpperCase())}</p>
