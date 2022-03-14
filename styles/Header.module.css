@@ -1,7 +1,7 @@
 .header {
     position: fixed;
     display: flex;
-    width: 100%;
+    min-width: 100vw;
     justify-content: flex-start;
     background-color: var(--red);
     padding: .5rem;

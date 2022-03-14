@@ -1,7 +1,7 @@
 import styles from '../styles/Header.module.css'
 import Link from 'next/link';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <nav className={styles.header}>
       <Link href='/'>

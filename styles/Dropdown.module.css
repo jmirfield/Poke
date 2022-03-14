@@ -1,0 +1,33 @@
+.dropdown__container {
+    position: absolute;
+    overflow: hidden;
+    border-radius: .5rem;
+    width: 100%;
+    box-shadow: 0 0 24px var(--gray);
+    z-index: 2;
+    background-color: white;
+}
+
+.dropdown {
+    max-height: 35vh;
+    list-style: none;
+    overflow-y: scroll;
+    scrollbar-color: var(--gray) transparent;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding-left: .5rem;
+}
+
+.dropdown__item {
+    display: flex;
+    padding: .25rem;
+}
+
+.dropdown__item > p {
+    margin-left: 1rem;
+}
+
+.placeholder {
+    margin-left: calc(1rem + 53px) !important;
+}
