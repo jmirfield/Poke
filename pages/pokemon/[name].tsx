@@ -1,26 +1,30 @@
+import React from 'react'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
-import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 import axios from 'axios'
+import { PokemonType } from '../../shared/interfaces/pokemonType.interface'
 import styles from '../../styles/PokemonPage.module.css'
 
-interface dataType {
-    slot: string,
-    name: string,
-}
 
 const getPokemon = async (name: string) => {
-    const URL = `https://pokeapi.co/api/v2/pokemon/${name}`
-    const { data } = await axios.get(URL)
-    const image: string = data.sprites.other.dream_world.front_default
-    const pokeTypes: dataType[] = data.types.map((pokeType: object<any>) => {slot: pokeType.slot, name: pokeType.type.type} 
+    const MAIN_URL = `https://pokeapi.co/api/v2/pokemon/${name}`
+    const { data: main } = await axios.get(MAIN_URL)
+    const SPECIES_URL = `https://pokeapi.co/api/v2/pokemon-species/${name}`
+    const { data: species } = await axios.get(SPECIES_URL)
+    const EVO_URL = species.evolution_chain.url
+    const { data: evolution } = await axios.get(EVO_URL)
 
-    console.log(types)
-    // console.log(data, types)
+    const image: string = main.sprites.other.dream_world.front_default || main.sprites.other['official-artwork'].front_default
+    const pokeTypes: PokemonType[] = main.types.map((poke: { slot: Number, type: { name: string, url: string } }) => {
+        return { slot: poke.slot, name: poke.type.name }
+    })
 
-    return { image, types }
+    const evolutions: string[] = []
+    if(evolution.chain.evolves_to.length > 0)console.log(evolution.chain)
+
+    return { image, pokeTypes }
 }
 
 const PokemonPage: React.FC<GetServerSideProps> = () => {
@@ -28,7 +32,7 @@ const PokemonPage: React.FC<GetServerSideProps> = () => {
     const pokemonName = router.query.name ? router.query.name as string : "";
 
     const { data, isLoading, isError } = useQuery(
-        ['pokemon', pokemonName],
+        ['pokemon_main', pokemonName],
         () => getPokemon(pokemonName),
         { enabled: pokemonName.length > 0, }
     )
@@ -37,7 +41,10 @@ const PokemonPage: React.FC<GetServerSideProps> = () => {
     if (isLoading) return <p className={styles.pokemon__main}>Loading...</p>
     return (
         <div className={styles.pokemon__main}>
-            {data?.image && <Image src={data?.image} width={400} height={400} />}
+            <section className={styles.pokemon__card}>
+                {data?.image && <Image src={data?.image} width={375} height={375} />}
+                {data?.pokeTypes.map((pokeType: PokemonType) => <p key={pokeType.slot}>{pokeType.name}</p>)}
+            </section>
         </div>
     )
 }
@@ -45,7 +52,7 @@ const PokemonPage: React.FC<GetServerSideProps> = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const name = context.query?.name as string
     const queryClient = new QueryClient()
-    await queryClient.prefetchQuery('pokemon', () => getPokemon(name))
+    await queryClient.prefetchQuery('pokemon_main', () => getPokemon(name))
     return {
         props: {
             dehydratedState: dehydrate(queryClient)

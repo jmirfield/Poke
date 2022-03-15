@@ -1,3 +1,16 @@
 .pokemon__main {
     margin-top: var(--header-height);
 }
+
+.pokemon__card {
+    display: inline-block;
+    background-color: white;
+    outline: var(--yellow) solid 3px;
+    border-radius: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+    .pokemon__card {
+        margin: 1rem 0 0 1rem;
+    }
+}
