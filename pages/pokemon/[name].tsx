@@ -9,6 +9,7 @@ import MainImage from '../../components/MainImage'
 import SpriteImages from '../../components/SpriteImages'
 import PokemonTypes from '../../components/PokemonTypes'
 import styles from '../../styles/PokemonPage.module.css'
+import PokemonDetails from '../../components/PokemonDetails'
 
 
 const getPokemon = async (name: string) => {
@@ -27,7 +28,6 @@ const getPokemon = async (name: string) => {
         front_shiny: data.sprites.front_shiny as string,
         back_shiny: data.sprites.back_shiny as string
     }
-
     return { image, pokeTypes, id, weight, height, sprites }
 }
 
@@ -47,10 +47,9 @@ const PokemonPage: NextPage<GetServerSideProps> = () => {
     return (
         <section className={styles.pokemon__card}>
             <MainImage image={data?.image} />
-            <SpriteImages sprites={data?.sprites} />
             <PokemonTypes types={data?.pokeTypes} />
-            <p>Index {data?.id}</p>
-            <p>{`weight: ${data?.weight}, height: ${data?.height}`}</p>
+            <SpriteImages sprites={data?.sprites} />
+            <PokemonDetails id={data?.id} weight={data?.weight} height={data?.height} />
         </section>
     )
 }

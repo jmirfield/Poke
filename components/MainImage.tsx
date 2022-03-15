@@ -9,7 +9,7 @@ interface PropType {
 const MainImage: React.FC<PropType> = (props) => {
     if(props?.image) return (
         <section className={styles.pokemon__image}>
-            <Image src={props?.image} width={375} height={375} className={styles.pokemon__main} />
+            <Image src={props?.image} width={375} height={375} />
         </section>
     )
     return <></>
