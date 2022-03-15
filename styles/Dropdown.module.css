@@ -21,7 +21,12 @@
 
 .dropdown__item {
     display: flex;
+    align-items: center;
     padding: .25rem 0 .25rem 1rem;
+}
+
+.dropdown__item > span {
+    max-height: 53px;
 }
 
 .dropdown__item:hover {

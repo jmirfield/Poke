@@ -20,7 +20,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
             <li key={poke.name}>
               <Link href={`/pokemon/${poke.name}`}>
                 <a className={styles.dropdown__item}>
-                  {poke.sprite && <Image src={poke.sprite} width='53px' height='53px' />}
+                  {poke.sprite && <Image src={poke.sprite} width={53} height={53}/>}
                   <p className={className}>{poke.name.replace(format, (s) => s.toUpperCase())}</p>
                 </a>
               </Link>
