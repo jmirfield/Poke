@@ -6,7 +6,6 @@ const PokemonDetails: React.FC<{ id: number | undefined, weight: number | undefi
     const weight = props?.weight ? Math.floor(props?.weight / 4.536) : 0
     const feet = props?.height ? Math.floor(props?.height / 3.048) : 0
     const inches = props?.height ? Math.ceil(((props?.height / 3.048) - feet) * 12) : 0
-    console.log(feet, inches)
 
     return (
         <section className={styles.pokemon__details}>
