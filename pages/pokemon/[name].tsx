@@ -6,11 +6,21 @@ import { dehydrate, QueryClient, useQuery } from 'react-query'
 import axios from 'axios'
 import styles from '../../styles/PokemonPage.module.css'
 
+interface dataType {
+    slot: string,
+    name: string,
+}
+
 const getPokemon = async (name: string) => {
     const URL = `https://pokeapi.co/api/v2/pokemon/${name}`
     const { data } = await axios.get(URL)
     const image: string = data.sprites.other.dream_world.front_default
-    return { image }
+    const pokeTypes: dataType[] = data.types.map((pokeType: object<any>) => {slot: pokeType.slot, name: pokeType.type.type} 
+
+    console.log(types)
+    // console.log(data, types)
+
+    return { image, types }
 }
 
 const PokemonPage: React.FC<GetServerSideProps> = () => {
@@ -23,7 +33,7 @@ const PokemonPage: React.FC<GetServerSideProps> = () => {
         { enabled: pokemonName.length > 0, }
     )
 
-    if(isError) router.push('/')
+    if (isError) router.push('/')
     if (isLoading) return <p className={styles.pokemon__main}>Loading...</p>
     return (
         <div className={styles.pokemon__main}>
