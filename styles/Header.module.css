@@ -5,6 +5,7 @@
     justify-content: flex-start;
     background-color: var(--red);
     padding: .5rem;
+    box-shadow: 0 0 24px black;
 }
 
 .header > a {

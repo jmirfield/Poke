@@ -1,33 +1,37 @@
 import React from 'react'
-import { GetServerSideProps } from 'next'
-import Image from 'next/image'
+import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 import axios from 'axios'
 import { PokemonType } from '../../shared/interfaces/pokemonType.interface'
+import { Sprites } from '../../shared/interfaces/sprites.interface'
+import MainImage from '../../components/MainImage'
+import SpriteImages from '../../components/SpriteImages'
+import PokemonTypes from '../../components/PokemonTypes'
 import styles from '../../styles/PokemonPage.module.css'
 
 
 const getPokemon = async (name: string) => {
-    const MAIN_URL = `https://pokeapi.co/api/v2/pokemon/${name}`
-    const { data: main } = await axios.get(MAIN_URL)
-    const SPECIES_URL = `https://pokeapi.co/api/v2/pokemon-species/${name}`
-    const { data: species } = await axios.get(SPECIES_URL)
-    const EVO_URL = species.evolution_chain.url
-    const { data: evolution } = await axios.get(EVO_URL)
-
-    const image: string = main.sprites.other.dream_world.front_default || main.sprites.other['official-artwork'].front_default
-    const pokeTypes: PokemonType[] = main.types.map((poke: { slot: Number, type: { name: string, url: string } }) => {
+    const URL = `https://pokeapi.co/api/v2/pokemon/${name}`
+    const { data } = await axios.get(URL)
+    const image: string = data.sprites.other.dream_world.front_default || data.sprites.other['official-artwork'].front_default
+    const pokeTypes: PokemonType[] = data.types.map((poke: { slot: Number, type: { name: string, url: string } }) => {
         return { slot: poke.slot, name: poke.type.name }
     })
+    const id: number = data.id
+    const weight: number = data.weight
+    const height: number = data.height
+    const sprites: Sprites = {
+        front_default: data.sprites.front_default as string,
+        back_default: data.sprites.back_default as string,
+        front_shiny: data.sprites.front_shiny as string,
+        back_shiny: data.sprites.back_shiny as string
+    }
 
-    const evolutions: string[] = []
-    if(evolution.chain.evolves_to.length > 0)console.log(evolution.chain)
-
-    return { image, pokeTypes }
+    return { image, pokeTypes, id, weight, height, sprites }
 }
 
-const PokemonPage: React.FC<GetServerSideProps> = () => {
+const PokemonPage: NextPage<GetServerSideProps> = () => {
     const router = useRouter();
     const pokemonName = router.query.name ? router.query.name as string : "";
 
@@ -39,13 +43,15 @@ const PokemonPage: React.FC<GetServerSideProps> = () => {
 
     if (isError) router.push('/')
     if (isLoading) return <p className={styles.pokemon__main}>Loading...</p>
+
     return (
-        <div className={styles.pokemon__main}>
-            <section className={styles.pokemon__card}>
-                {data?.image && <Image src={data?.image} width={375} height={375} />}
-                {data?.pokeTypes.map((pokeType: PokemonType) => <p key={pokeType.slot}>{pokeType.name}</p>)}
-            </section>
-        </div>
+        <section className={styles.pokemon__card}>
+            <MainImage image={data?.image} />
+            <SpriteImages sprites={data?.sprites} />
+            <PokemonTypes types={data?.pokeTypes} />
+            <p>Index {data?.id}</p>
+            <p>{`weight: ${data?.weight}, height: ${data?.height}`}</p>
+        </section>
     )
 }
 
