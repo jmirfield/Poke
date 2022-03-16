@@ -22,7 +22,7 @@ const Search: React.FC = () => {
 
     return (
         <section className={styles.search__main}>
-            <form className={styles.search__form}>
+            <form className={styles.search__form} onSubmit={(e) => e.preventDefault()}>
                 <Image src='/search.svg' width='24px' height='24px' />
                 <input value={text} onChange={textChangeHandler}></input>
             </form>
