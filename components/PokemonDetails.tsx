@@ -19,7 +19,7 @@ const PokemonDetails: React.FC<{ id: number | undefined, weight: number | undefi
             </section>
             <section>
                 <span>Height</span>
-                <span className={styles.pokemon_sub}>{`${feet}' ${inches}"`}</span>
+                <span className={styles.pokemon_sub}>{`${(inches === 12) ? feet + 1 : feet}' ${(inches === 12) ? 0 : inches}"`}</span>
             </section>
         </section>
     )
