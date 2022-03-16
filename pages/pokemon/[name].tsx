@@ -32,7 +32,7 @@ const getPokemon = async (name: string): Promise<PokemonData> => {
     return { image, pokeTypes, id, weight, height, sprites }
 }
 
-const PokemonPage: NextPage<GetServerSideProps> = () => {
+const PokemonPage: NextPage = () => {
     const router = useRouter();
     const pokemonName = router.query.name ? router.query.name as string : "";
 
