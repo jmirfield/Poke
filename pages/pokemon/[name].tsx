@@ -11,6 +11,7 @@ import PokemonTypes from '../../components/PokemonTypes'
 import SpriteImages from '../../components/SpriteImages'
 import PokemonDetails from '../../components/PokemonDetails'
 import { ThreeCircles } from 'react-loader-spinner'
+import convToUppercase from '../../util/convToUppercase'
 import styles from '../../styles/PokemonPage.module.css'
 
 const getPokemon = async (name: string): Promise<PokemonData> => {
@@ -21,6 +22,7 @@ const getPokemon = async (name: string): Promise<PokemonData> => {
         return { slot: poke.slot, name: poke.type.name }
     })
     const id: number = data.id
+    const pokemonName: string = convToUppercase(data.name)
     const weight: number = data.weight
     const height: number = data.height
     const sprites: Sprites = {
@@ -29,7 +31,7 @@ const getPokemon = async (name: string): Promise<PokemonData> => {
         front_shiny: data.sprites.front_shiny as string,
         back_shiny: data.sprites.back_shiny as string
     }
-    return { image, pokeTypes, id, weight, height, sprites }
+    return { pokemonName, image, pokeTypes, id, weight, height, sprites }
 }
 
 const PokemonPage: NextPage = () => {
@@ -45,12 +47,13 @@ const PokemonPage: NextPage = () => {
     if (isError) router.push('/')
     if (isLoading) return (
         <section className={styles.pokemon__card}>
-            <ThreeCircles color="white" height={100} width={100} outerCircleColor='red'/>
+            <ThreeCircles color="white" height={100} width={100} outerCircleColor='red' />
         </section>
     )
 
     return (
         <section className={styles.pokemon__card}>
+            <h1 className={styles.pokemon__name}>{data?.pokemonName}</h1>
             <MainImage image={data?.image} />
             <PokemonTypes types={data?.pokeTypes} />
             <SpriteImages sprites={data?.sprites} />

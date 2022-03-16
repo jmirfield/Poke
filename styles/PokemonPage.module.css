@@ -8,6 +8,11 @@
     box-shadow: 0 0 24px black;
 }
 
+.pokemon__name {
+    color: white;
+    margin: 0;
+}
+
 .pokemon__image {
     background-color: white !important;
 }
@@ -159,7 +164,11 @@
 @media only screen and (min-width: 600px) and (min-height: 600px) {
     .pokemon__card {
         flex-direction: column;
-        margin: calc(var(--header-height) + 2rem) auto 0 auto;
+        margin: calc(2rem) auto 0 auto;
+    }
+
+    .pokemon__name {
+        margin: .5rem 0 1rem 0;
     }
 
     .pokemon__image {
@@ -201,6 +210,11 @@
         flex-direction: column;
         margin: 1rem auto 0 auto;
         max-width: 90%;
+    }
+
+    .pokemon__name {
+        font-size: 1rem;
+        margin: .5rem 0 1rem 0;
     }
 
     .pokemon__image {
