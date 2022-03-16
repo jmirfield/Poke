@@ -8,8 +8,9 @@ import { Sprites } from '../../shared/interfaces/sprites.interface'
 import MainImage from '../../components/MainImage'
 import SpriteImages from '../../components/SpriteImages'
 import PokemonTypes from '../../components/PokemonTypes'
-import styles from '../../styles/PokemonPage.module.css'
 import PokemonDetails from '../../components/PokemonDetails'
+import { ThreeCircles } from 'react-loader-spinner'
+import styles from '../../styles/PokemonPage.module.css'
 
 
 const getPokemon = async (name: string) => {
@@ -42,7 +43,11 @@ const PokemonPage: NextPage<GetServerSideProps> = () => {
     )
 
     if (isError) router.push('/')
-    if (isLoading) return <p className={styles.pokemon__main}>Loading...</p>
+    if (isLoading) return (
+        <section className={styles.pokemon__card}>
+            <ThreeCircles color="white" height={100} width={100} outerCircleColor='red'/>
+        </section>
+    )
 
     return (
         <section className={styles.pokemon__card}>
