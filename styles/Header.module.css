@@ -4,7 +4,7 @@
     justify-content: flex-start;
     background-color: var(--red);
     padding: .5rem;
-    box-shadow: 0 0 24px black;
+    box-shadow: 0 0 12px black;
 }
 
 .header > a {
