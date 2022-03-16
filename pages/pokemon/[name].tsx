@@ -3,17 +3,17 @@ import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 import axios from 'axios'
+import { PokemonData } from '../../shared/interfaces/pokemonData.interface'
 import { PokemonType } from '../../shared/interfaces/pokemonType.interface'
 import { Sprites } from '../../shared/interfaces/sprites.interface'
 import MainImage from '../../components/MainImage'
-import SpriteImages from '../../components/SpriteImages'
 import PokemonTypes from '../../components/PokemonTypes'
+import SpriteImages from '../../components/SpriteImages'
 import PokemonDetails from '../../components/PokemonDetails'
 import { ThreeCircles } from 'react-loader-spinner'
 import styles from '../../styles/PokemonPage.module.css'
 
-
-const getPokemon = async (name: string) => {
+const getPokemon = async (name: string): Promise<PokemonData> => {
     const URL = `https://pokeapi.co/api/v2/pokemon/${name}`
     const { data } = await axios.get(URL)
     const image: string = data.sprites.other.dream_world.front_default || data.sprites.other['official-artwork'].front_default
