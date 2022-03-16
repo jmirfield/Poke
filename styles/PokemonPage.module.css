@@ -146,12 +146,9 @@
     display: grid;
     background-color: white;
     color: black;
-    gap: 1rem;
     border-radius: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding: .5rem;
     border: var(--gray) solid 3px;
+    font-weight: bold;
 }
 
 .pokemon__details>section {
@@ -182,6 +179,9 @@
     .pokemon__details {
         grid-template-columns: 1fr 1fr;
         place-items: center center;
+        gap: 1rem;
+        font-size: 1.5rem;
+        padding: .5rem;
     }
 
     .pokemon__details>section {
@@ -194,15 +194,12 @@
         grid-column: 1/ -1;
     }
 
-    .pokemon_sub {
-        font-size: 1rem;
-    }
 }
 
 @media only screen and (max-width: 600px) {
     .pokemon__card {
         flex-direction: column;
-        margin: calc(var(--header-height) + 2rem) auto 0 auto;
+        margin: 2rem auto 0 auto;
         max-width: 90%;
     }
 
@@ -214,6 +211,12 @@
     .pokemon__details {
         grid-template-columns: 1fr 1fr;
         place-items: center center;
+        gap: .5rem;
+        padding: .25rem;
+    }
+
+    .pokemon__list {
+        margin: .5rem 0 0 0;
     }
 
     .pokemon__details>section {
@@ -227,16 +230,17 @@
     }
 
     .pokemon_sub {
-        font-size: 1rem;
+        font-size: .75rem;
     }
 }
 
 @media only screen and (max-height: 600px) {
     .pokemon__card {
-        margin: calc(var(--header-height) + 2rem) auto 0 auto;
+        margin: 1.5rem auto 0 auto;
         max-width: 90%;
         max-height: 70%;
     }
+
     .pokemon__image {
         overflow: hidden;
         border-radius: 1rem;
@@ -244,13 +248,13 @@
         padding: .5rem;
     }
 
-    .pokemon__image > span {
+    .pokemon__image>span {
         max-height: 100%;
     }
 
     .pokemon__list {
         flex-direction: column;
-        margin: 0 .5rem 0 .5rem;
+        margin: 0 0 0 .5rem;
     }
 
     .pokemon__sprites {
@@ -261,6 +265,7 @@
     .pokemon__details {
         grid-template-rows: 1fr 1fr 1fr;
         place-items: center center;
+        padding: 0 .5rem 0 .5rem;
     }
 
     .pokemon__details>section {
@@ -270,7 +275,7 @@
     }
 
     .pokemon_sub {
-        font-size: 1rem;
+        font-size: .75rem;
     }
 
 }

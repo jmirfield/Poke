@@ -11,7 +11,7 @@ const PokemonDetails: React.FC<{ id: number | undefined, weight: number | undefi
         <section className={styles.pokemon__details}>
             <section>
                 <span>Pokedex</span>
-                <span className={styles.pokemon_sub}>{props?.id}</span>
+                <span className={styles.pokemon_sub}>#{props?.id}</span>
             </section>
             <section>
                 <span>Weight</span>
